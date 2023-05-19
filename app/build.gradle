@@ -15,7 +15,7 @@ plugins {
 
 javafx {
     version = "20"
-    modules = [ 'javafx.controls' ]
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 repositories {
@@ -29,6 +29,8 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
+
+    implementation group: 'org.openjfx', name: 'javafx', version: '20.0.1'
 }
 
 application {
