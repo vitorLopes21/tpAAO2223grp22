@@ -30,12 +30,13 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
 
+    // Use JavaFX to build the application UI.
     implementation group: 'org.openjfx', name: 'javafx', version: '20.0.1'
 }
 
 application {
     // Define the main class for the application.
-    mainClass = 'tpaao.App'
+    mainClass = 'tpaao.Main.App'
 }
 
 tasks.named('test') {

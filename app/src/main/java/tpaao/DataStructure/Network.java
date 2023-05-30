@@ -72,4 +72,16 @@ public class Network {
         // traveling through all cities in the network
 
     }
+
+    public int getNumVertexes() {
+        return this.numVertexes;
+    }
+
+    public City[] getVertexes() {
+        return this.vertexes;
+    }
+
+    public int[][] getDistanceMatrix() {
+        return this.distanceMatrix;
+    }
 }
