@@ -6,6 +6,7 @@ package tpaao.Main;
 import javafx.application.Application;
 import tpaao.DataStructure.City;
 import tpaao.DataStructure.Network;
+import tpaao.DataStructure.TSPSolver;
 import tpaao.GUI.NetworkGUI;
 
 public class App {
@@ -17,14 +18,12 @@ public class App {
 
     public static void main(String[] args) {
         try {
-            City porto = new City("Porto");
-            City lisboa = new City("Lisboa");
-            City braga = new City("Braga");
-            City aveiro = new City("Aveiro");
-            City coimbra = new City("Coimbra");
-            City leiria = new City("Leiria");
-            City viseu = new City("Viseu");
-            City guarda = new City("Guarda");
+            City porto = new City("Porto", 41.1496, -8.6110);
+            City lisboa = new City("Lisboa", 38.736946, -9.142685);
+            City braga = new City("Braga", 41.545448, -8.426507);
+            City aveiro = new City("Aveiro", 40.64427, -8.64554);
+            City coimbra = new City("Coimbra", 40.203314, -8.410257);
+            City leiria = new City("Leiria", 39.749533, -8.807683);
 
             Network network = new Network();
             network.addVertex(porto);
@@ -33,14 +32,26 @@ public class App {
             network.addVertex(aveiro);
             network.addVertex(coimbra);
             network.addVertex(leiria);
-            network.addVertex(viseu);
-            network.addVertex(guarda);
 
             network.addEdgesBetweenAllCities();
 
+            network.printDistanceMatrix();
+
             App.network = network;
 
-            Application.launch(NetworkGUI.class, args);
+            TSPSolver tspSolver = new TSPSolver(network);
+
+            int ans = Integer.MAX_VALUE;
+            for (int i = 1; i <= network.getNumVertexes(); i++) {
+                int tourCost = tspSolver.solveTSPProblemUsingDynamicProgramming(i);
+                int distanceToStartCity = network.getDistanceMatrix()[i][0]; // Use index 0 for the start city
+                ans += Math.min(ans, tourCost + distanceToStartCity);
+            }
+
+            System.out.println("The cost of the most efficient tour = " + ans);
+
+            //Application.launch(NetworkGUI.class, args);
+
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
