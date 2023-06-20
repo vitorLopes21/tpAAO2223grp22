@@ -2,7 +2,7 @@ package tpaao.DataStructure;
 
 public class Network {
     // Maximum number of vertexes
-    private final int MAX_VERTEXES = 24;
+    private final int MAX_VERTEXES = 25;
     // Number of vertexes in the network
     private int numVertexes;
     // Array of vertexes
