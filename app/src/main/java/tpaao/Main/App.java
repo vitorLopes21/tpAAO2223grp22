@@ -51,51 +51,56 @@ public class App {
             Network network = new Network();
 
             System.out.println(
-                    "Which method do you want to choose? [1]-> 6 city method; [2]-> 12 city method; [3]-> 24 city method; [4] -> Go back");
+                    "Which method do you want to choose? [1]-> 6 city method; [2]-> 12 city method; [3]-> 24 city method; [0] -> Go back");
 
             Scanner scanner = new Scanner(System.in);
             choice = scanner.nextInt();
 
             switch (choice) {
                 case 1:
-                    System.out.println("6 city method");
+                    System.out.println("6 city Dynamic Programming method");
                     for (int i = 0; i < 6; i++) {
                         network.addVertex(cityArray.get(i));
                     }
                     break;
                 case 2:
-                    System.out.println("12 city method");
+                    System.out.println("12 city Dynamic Programming method");
                     for (int i = 0; i < 12; i++) {
                         network.addVertex(cityArray.get(i));
                     }
                     break;
                 case 3:
-                    System.out.println("24 city method");
+                    System.out.println("24 city Dynamic Programming method");
                     for (int i = 0; i < 24; i++) {
                         network.addVertex(cityArray.get(i));
                     }
                     break;
-            }
-            scanner.close();
-
-            network.addEdgesBetweenAllCities();
-
-            // network.printDistanceMatrix();
-
-            App.network = network;
-
-            TSPSolver tspSolver = new TSPSolver(network);
-
-            int ans = Integer.MAX_VALUE;
-            for (int i = 1; i <= network.getNumVertexes(); i++) {
-                int tourCost = tspSolver.solveTSPProblemUsingDynamicProgramming(i);
-                int distanceToStartCity = network.getDistanceMatrix()[i][0]; // Use index 0 for the start city
-                ans += Math.min(ans, tourCost + distanceToStartCity);
+                case 0:
+                    break;
             }
 
-            System.out.println("The cost of the most efficient tour = " + ans);
+            if (choice != 0) {
+                scanner.close();
 
-            Application.launch(NetworkGUI.class, args);
+                network.addEdgesBetweenAllCities();
+
+                // network.printDistanceMatrix();
+
+                App.network = network;
+
+                TSPSolver tspSolver = new TSPSolver(network);
+
+                int ans = Integer.MAX_VALUE;
+                for (int i = 1; i <= network.getNumVertexes(); i++) {
+                    int tourCost = tspSolver.solveTSPProblemUsingDynamicProgramming(i);
+                    int distanceToStartCity = network.getDistanceMatrix()[i][0]; // Use index 0 for the start city
+                    ans += Math.min(ans, tourCost + distanceToStartCity);
+                }
+
+                System.out.println("The cost of the most efficient tour = " + ans);
+
+                Application.launch(NetworkGUI.class, args);
+            }
 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
