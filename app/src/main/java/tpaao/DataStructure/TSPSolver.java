@@ -1,20 +1,20 @@
 package tpaao.DataStructure;
 
+import tpaao.Main.App;
+
 public class TSPSolver {
     Network network;
 
     int[][] memo;
-    long complexity; // Variable to calculate the complexity
 
     public TSPSolver(Network network) {
         this.network = network;
         this.memo = new int[this.network.getNumVertexes() + 1][1 << (this.network.getNumVertexes() + 1)];
-        this.complexity = 0; // Initialize complexity to 0
     }
 
     // Method to solve the TSP problem
     public int solveTSPProblemUsingDynamicProgramming(int i) {
-        complexity++; // Increment the complexity counter
+        App.incrementComplexity(); // Increment the complexity counter
         int mask = (1 << (this.network.getNumVertexes() + 1)) - 1;
 
         // base case
@@ -22,13 +22,13 @@ public class TSPSolver {
         // it implies we have visited all other nodes
         // already
         if (mask == ((1 << (this.network.getNumVertexes() + 1)) - 1)) {
-            complexity++; // Increment the complexity counter
+            App.incrementComplexity(); // Increment the complexity counter
             return this.network.getDistanceMatrix()[1][i];
         }
 
         // memoization
         if (this.memo[i][mask] != 0) {
-            complexity++; // Increment the complexity counter
+            App.incrementComplexity(); // Increment the complexity counter
             return this.memo[i][mask];
         }
 
@@ -44,9 +44,9 @@ public class TSPSolver {
 
         // Iterate through all possible next nodes
         for (int j = 1; j <= network.getNumVertexes(); j++) {
-            complexity++; // Increment the complexity counter
-            if ((mask & (1 << j)) == 0) {
-                complexity++; // Increment the complexity counter
+            App.incrementComplexity(); // Increment the complexity counter
+            if ((mask & (1 << j)) != 0 && j != i && j != 1) {
+                App.incrementComplexity(); // Increment the complexity counter
                 // If the j-th bit is not set in the mask, it means the node j has not been
                 // visited yet
                 // Calculate the distance from the current node (last visited node) to node j
@@ -61,9 +61,5 @@ public class TSPSolver {
         }
 
         return this.memo[i][mask] = res;
-    }
-
-    public long getComplexity() {
-        return complexity;
     }
 }

@@ -14,9 +14,18 @@ import tpaao.GUI.NetworkGUI;
 
 public class App {
     private static Network network;
+    private static int complexity;
 
     public static Network getNetwork() {
         return network;
+    }
+
+    public static int getComplexity() {
+        return complexity;
+    }
+
+    public static void incrementComplexity() {
+        complexity++;
     }
 
     public static void main(String[] args) {
@@ -90,6 +99,8 @@ public class App {
 
                 App.network = network;
 
+                App.complexity = 0;
+
                 TSPSolver tspSolver = new TSPSolver(network);
 
                 int ans = Integer.MAX_VALUE;
@@ -100,7 +111,7 @@ public class App {
                 }
 
                 System.out.println("The cost of the most efficient tour = " + ans);
-                System.out.println("Complexity analysis = " + tspSolver.getComplexity());
+                System.out.println("Complexity analysis = " + complexity);
 
                 Application.launch(NetworkGUI.class, args);
             }

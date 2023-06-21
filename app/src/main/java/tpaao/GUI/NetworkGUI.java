@@ -40,12 +40,12 @@ public class NetworkGUI extends Application {
 
         pane.getChildren().add(canvas);
 
-        TSPSolver tspSolver = new TSPSolver(network);
-        int optimalPathIndex = tspSolver.solveTSPProblemUsingDynamicProgramming(0);
+        //TSPSolver tspSolver = new TSPSolver(network);
+        //int optimalPathIndex = tspSolver.solveTSPProblemUsingDynamicProgramming(0);
 
-        int[] optimalPath = convertIndexToPath(optimalPathIndex, network.getNumVertexes()); // Convert index to path
+        //int[] optimalPath = convertIndexToPath(optimalPathIndex, network.getNumVertexes()); // Convert index to path
                                                                                             // array
-        drawNetwork(optimalPath);
+        //drawNetwork(optimalPath);
 
         // Add event handlers for arrow key presses
         scene.setOnKeyPressed(event -> {
