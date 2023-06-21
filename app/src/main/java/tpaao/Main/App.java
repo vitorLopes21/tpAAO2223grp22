@@ -23,35 +23,35 @@ public class App {
         try {
             int choice;
             ArrayList<City> cityArray = new ArrayList<City>();
-            cityArray.add(new City("Porto", 41.1496, -8.6110));
-            cityArray.add(new City("Lisboa", 38.736946, -9.142685));
-            cityArray.add(new City("Braga", 41.545448, -8.426507));
-            cityArray.add(new City("Aveiro", 40.64427, -8.64554));
-            cityArray.add(new City("Coimbra", 40.203314, -8.410257));
-            cityArray.add(new City("Leiria", 39.749533, -8.807683));
-            cityArray.add(new City("Lixa", 41.3166654, -8.166666));
-            cityArray.add(new City("Vila Nova de Gaia", 41.1339, -8.6176));
-            cityArray.add(new City("Amadora", 38.7538, -9.2308));
-            cityArray.add(new City("Setúbal", 38.5244, -8.8882));
-            cityArray.add(new City("Funchal", 32.6669, -16.9241));
-            cityArray.add(new City("Cacém", 38.7704, -9.3134));
-            cityArray.add(new City("Vila Nova de Famalicão", 41.4135, -8.5196));
-            cityArray.add(new City("Algueirão-Mem Martins", 38.803, -9.2542));
-            cityArray.add(new City("Bragança", 41.8058, -6.7579));
-            cityArray.add(new City("Viseu", 40.661, -7.9097));
-            cityArray.add(new City("Felgueiras", 41.3684, -8.1951));
-            cityArray.add(new City("Barreiro", 38.663, -9.072));
-            cityArray.add(new City("Guarda", 40.5371, -7.2656));
-            cityArray.add(new City("Espinho", 41.007, -8.6415));
-            cityArray.add(new City("Póvoa de Varzim", 41.3833, -8.7667));
-            cityArray.add(new City("Matosinhos", 41.1828, -8.6897));
-            cityArray.add(new City("Maia", 41.2352, -8.6195));
-            cityArray.add(new City("Gondomar", 41.1406, -8.5326));
+            cityArray.add(new City("Lisbon", 38.7223, -9.1393)); // Portugal
+            cityArray.add(new City("Madrid", 40.4168, -3.7038)); // Spain
+            cityArray.add(new City("Paris", 48.8566, 2.3522)); // France
+            cityArray.add(new City("Rome", 41.9028, 12.4964)); // Italy
+            cityArray.add(new City("Berlin", 52.5200, 13.4050)); // Germany
+            cityArray.add(new City("London", 51.5074, -0.1278)); // United Kingdom
+            cityArray.add(new City("Athens", 37.9838, 23.7275)); // Greece
+            cityArray.add(new City("Amsterdam", 52.3667, 4.8945)); // Netherlands
+            cityArray.add(new City("Brussels", 50.8503, 4.3517)); // Belgium
+            cityArray.add(new City("Vienna", 48.2082, 16.3738)); // Austria
+            cityArray.add(new City("Moscow", 55.7512, 37.6184)); // Russia
+            cityArray.add(new City("Tokyo", 35.6895, 139.6917)); // Japan
+            cityArray.add(new City("Beijing", 39.9042, 116.4074)); // China
+            cityArray.add(new City("New Delhi", 28.6139, 77.2090)); // India
+            cityArray.add(new City("Cairo", 30.0444, 31.2357)); // Egypt
+            cityArray.add(new City("Nairobi", -1.2864, 36.8172)); // Kenya
+            cityArray.add(new City("Cape Town", -33.9249, 18.4241)); // South Africa
+            cityArray.add(new City("Rio de Janeiro", -22.9068, -43.1729)); // Brazil
+            cityArray.add(new City("Mexico City", 19.4326, -99.1332)); // Mexico
+            cityArray.add(new City("Toronto", 43.6510, -79.3470)); // Canada
+            cityArray.add(new City("Washington, D.C.", 38.9072, -77.0369)); // United States
+            cityArray.add(new City("Buenos Aires", -34.6037, -58.3816)); // Argentina
+            cityArray.add(new City("Sydney", -33.8651, 151.2099)); // Australia
+            cityArray.add(new City("Cape Town", -33.9249, 18.4241)); // South Africa
 
             Network network = new Network();
 
             System.out.println(
-                    "Which method do you want to choose? [1]-> 6 city method; [2]-> 12 city method; [3]-> 24 city method; [0] -> Go back");
+                    "Which method do you want to choose? [1]-> 6 city method; [2]-> 12 city method; [3|WIP]-> 24 city method; [0] -> Go back");
 
             Scanner scanner = new Scanner(System.in);
             choice = scanner.nextInt();
@@ -70,10 +70,12 @@ public class App {
                     }
                     break;
                 case 3:
+
                     System.out.println("24 city Dynamic Programming method");
                     for (int i = 0; i < 24; i++) {
                         network.addVertex(cityArray.get(i));
                     }
+
                     break;
                 case 0:
                     break;
@@ -98,6 +100,7 @@ public class App {
                 }
 
                 System.out.println("The cost of the most efficient tour = " + ans);
+                System.out.println("Complexity analysis = " + tspSolver.getComplexity());
 
                 Application.launch(NetworkGUI.class, args);
             }
