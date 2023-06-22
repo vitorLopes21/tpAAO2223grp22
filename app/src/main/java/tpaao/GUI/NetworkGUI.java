@@ -9,11 +9,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import tpaao.DataStructure.Network;
-import tpaao.DataStructure.TSPSolver;
 import tpaao.Main.App;
 
 public class NetworkGUI extends Application {
     private Network network;
+    private int optimalPathIndex;
     private Canvas canvas;
     private GraphicsContext gc;
     private static final double ZOOM_FACTOR = 1.1; // Increase zoom by 10%
@@ -34,18 +34,17 @@ public class NetworkGUI extends Application {
         Scene scene = new Scene(pane, 1440, 600);
 
         this.network = App.getNetwork();
+        this.optimalPathIndex = App.getResult();
 
         canvas = new Canvas(1440, 1200);
         gc = canvas.getGraphicsContext2D();
 
         pane.getChildren().add(canvas);
 
-        //TSPSolver tspSolver = new TSPSolver(network);
-        //int optimalPathIndex = tspSolver.solveTSPProblemUsingDynamicProgramming(0);
-
-        //int[] optimalPath = convertIndexToPath(optimalPathIndex, network.getNumVertexes()); // Convert index to path
+        int[] optimalPath = convertIndexToPath(optimalPathIndex, network.getNumVertexes()); // Convert index to path
                                                                                             // array
-        //drawNetwork(optimalPath);
+
+        drawNetwork(optimalPath);
 
         // Add event handlers for arrow key presses
         scene.setOnKeyPressed(event -> {
@@ -107,7 +106,8 @@ public class NetworkGUI extends Application {
         // representation
 
         int[] optimalPath = new int[numberOfCities];
-        for (int i = 0; i < numberOfCities; i++) {
+        // System.out.println("Number of cities: " + numberOfCities);
+        for (int i = 1; i < numberOfCities; i++) {
             optimalPath[i] = i;
         }
 
@@ -123,7 +123,7 @@ public class NetworkGUI extends Application {
         double padding = 50; // Padding around the network
 
         // Find the minimum and maximum coordinates
-        for (int i = 0; i < network.getNumVertexes(); i++) {
+        for (int i = 1; i < network.getNumVertexes(); i++) {
             double x = network.getVertexes()[i].getX();
             double y = network.getVertexes()[i].getY();
 
@@ -146,8 +146,8 @@ public class NetworkGUI extends Application {
         gc.clearRect(0, 0, canvasWidth, canvasHeight);
 
         // Draw the edges between the cities
-        for (int i = 0; i < network.getNumVertexes(); i++) {
-            for (int j = 0; j < network.getNumVertexes(); j++) {
+        for (int i = 1; i < network.getNumVertexes(); i++) {
+            for (int j = 1; j < network.getNumVertexes(); j++) {
                 if (network.getDistanceMatrix()[i][j] != 0) {
                     double startX = network.getVertexes()[i].getX() * scaleX + offsetX;
                     double startY = network.getVertexes()[i].getY() * scaleY + offsetY;
@@ -161,7 +161,7 @@ public class NetworkGUI extends Application {
         }
 
         // Draw the cities and their circles
-        for (int i = 0; i < network.getNumVertexes(); i++) {
+        for (int i = 1; i < network.getNumVertexes(); i++) {
             double x = network.getVertexes()[i].getX() * scaleX + offsetX;
             double y = network.getVertexes()[i].getY() * scaleY + offsetY;
 
@@ -180,7 +180,7 @@ public class NetworkGUI extends Application {
         }
 
         // Draw the cities' names
-        for (int i = 0; i < network.getNumVertexes(); i++) {
+        for (int i = 1; i < network.getNumVertexes(); i++) {
             double x = network.getVertexes()[i].getX() * scaleX + offsetX;
             double y = network.getVertexes()[i].getY() * scaleY + offsetY;
 
@@ -192,8 +192,9 @@ public class NetworkGUI extends Application {
         gc.setStroke(Color.RED);
         gc.setLineWidth(2);
 
-        for (int i = 0; i < optimalPath.length; i++) {
-            int cityIndex1 = optimalPath[i];
+        // Draw the edges between the cities
+        for (int i = 1; i < optimalPath.length; i++) {
+            int cityIndex1 = optimalPath[i]; // Connect the current city with the next city
             int cityIndex2 = optimalPath[(i + 1) % optimalPath.length]; // Connect the last city with the first city
 
             double startX = network.getVertexes()[cityIndex1].getX() * scaleX + offsetX;

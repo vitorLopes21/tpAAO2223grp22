@@ -16,6 +16,7 @@ public class App {
     public static int MAX = 1000000000;
     private static Network network;
     private static int complexity;
+    private static int result;
 
     public static Network getNetwork() {
         return network;
@@ -27,6 +28,10 @@ public class App {
 
     public static void incrementComplexity() {
         complexity++;
+    }
+
+    public static int getResult() {
+        return result;
     }
 
     public static void main(String[] args) {
@@ -49,6 +54,7 @@ public class App {
             cityArray.add(new City("New Delhi", 28.6139, 77.2090)); // India
             cityArray.add(new City("Cairo", 30.0444, 31.2357)); // Egypt
             cityArray.add(new City("Nairobi", -1.2864, 36.8172)); // Kenya
+            cityArray.add(new City("Hobert", -42, 147.8172)); // Tasmania
 
             Network network = new Network();
 
@@ -62,7 +68,7 @@ public class App {
             do {
 
                 choice = scanner.nextInt();
-                
+
                 if (choice < 0 || choice > 3) {
                     System.out.println("Invalid choice. Please try again.");
                 }
@@ -106,12 +112,17 @@ public class App {
 
                 TSPSolver tspSolver = new TSPSolver(network);
 
-                int ans = MAX;
+                result = MAX;
                 for (int i = 1; i <= network.getNumVertexes(); i++) {
-                    ans = Math.min(ans, tspSolver.solveTSPProblemUsingDynamicProgramming(i, (1 << (network.getNumVertexes() + 1)) - 1) + network.getDistanceMatrix()[i][1]);
+                    App.incrementComplexity(); // Increment the complexity counter
+                    result = Math
+                            .min(result,
+                                    tspSolver.solveTSPProblemUsingDynamicProgramming(i,
+                                            (1 << (network.getNumVertexes() + 1)) - 1)
+                                            + network.getDistanceMatrix()[i][1]);
                 }
 
-                System.out.println("The cost of the most efficient tour = " + ans);
+                System.out.println("The cost of the most efficient tour = " + result);
                 System.out.println("Complexity analysis = " + complexity);
 
                 Application.launch(NetworkGUI.class, args);
