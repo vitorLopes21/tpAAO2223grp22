@@ -31,7 +31,7 @@ public class TSPSolver {
             return this.memo[i][mask];
         }
 
-        int res = Integer.MAX_VALUE; // result
+        int res = App.MAX; // result
 
         // we have to travel all nodes j in mask and end the
         // path at ith node so for every node j in mask,
@@ -48,14 +48,9 @@ public class TSPSolver {
                 App.incrementComplexity(); // Increment the complexity counter
                 // If the j-th bit is not set in the mask, it means the node j has not been
                 // visited yet
-                // Calculate the distance from the current node (last visited node) to node j
-                int distance = network.getDistanceMatrix()[j][i]; // Assuming the start node is at index 0
-
-                // Recursively calculate the TSP solution for the remaining unvisited nodes
-                int subProblem = solveTSPProblemUsingDynamicProgramming(j, mask & (~(1 << i)));
 
                 // Update the result by considering the minimum distance
-                res = Math.min(res, distance + subProblem);
+                res = Math.min(res, solveTSPProblemUsingDynamicProgramming(j, mask & (~(1 << i))) + network.getDistanceMatrix()[j][i]);
             }
         }
 

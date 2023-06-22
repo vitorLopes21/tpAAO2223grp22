@@ -13,6 +13,7 @@ import tpaao.DataStructure.TSPSolver;
 import tpaao.GUI.NetworkGUI;
 
 public class App {
+    public static int MAX = 1000000000;
     private static Network network;
     private static int complexity;
 
@@ -48,19 +49,13 @@ public class App {
             cityArray.add(new City("New Delhi", 28.6139, 77.2090)); // India
             cityArray.add(new City("Cairo", 30.0444, 31.2357)); // Egypt
             cityArray.add(new City("Nairobi", -1.2864, 36.8172)); // Kenya
-            cityArray.add(new City("Cape Town", -33.9249, 18.4241)); // South Africa
-            cityArray.add(new City("Rio de Janeiro", -22.9068, -43.1729)); // Brazil
-            cityArray.add(new City("Mexico City", 19.4326, -99.1332)); // Mexico
-            cityArray.add(new City("Toronto", 43.6510, -79.3470)); // Canada
-            cityArray.add(new City("Washington, D.C.", 38.9072, -77.0369)); // United States
-            cityArray.add(new City("Buenos Aires", -34.6037, -58.3816)); // Argentina
-            cityArray.add(new City("Sydney", -33.8651, 151.2099)); // Australia
-            cityArray.add(new City("Cape Town", -33.9249, 18.4241)); // South Africa
 
             Network network = new Network();
 
+            network.addVertex(new City("Empty City", 0.0, 0.0));
+
             System.out.println(
-                    "Which method do you want to choose? [1]-> 6 city method; [2]-> 12 city method; [3|WIP]-> 24 city method; [0] -> Go back");
+                    "Which method do you want to choose? [1]-> 4 city method; [2]-> 8 city method; [3]-> 16 city method; [0] -> Go back");
 
             Scanner scanner = new Scanner(System.in);
 
@@ -75,21 +70,21 @@ public class App {
 
             switch (choice) {
                 case 1:
-                    System.out.println("6 city Dynamic Programming method");
-                    for (int i = 0; i < 6; i++) {
+                    System.out.println("4 city Dynamic Programming method");
+                    for (int i = 0; i < 4; i++) {
                         network.addVertex(cityArray.get(i));
                     }
                     break;
                 case 2:
-                    System.out.println("12 city Dynamic Programming method");
-                    for (int i = 0; i < 12; i++) {
+                    System.out.println("8 city Dynamic Programming method");
+                    for (int i = 0; i < 8; i++) {
                         network.addVertex(cityArray.get(i));
                     }
                     break;
                 case 3:
 
-                    System.out.println("24 city Dynamic Programming method");
-                    for (int i = 0; i < 24; i++) {
+                    System.out.println("16 city Dynamic Programming method");
+                    for (int i = 0; i < 16; i++) {
                         network.addVertex(cityArray.get(i));
                     }
 
@@ -103,7 +98,7 @@ public class App {
 
                 network.addEdgesBetweenAllCities();
 
-                // network.printDistanceMatrix();
+                network.printDistanceMatrix();
 
                 App.network = network;
 
@@ -111,11 +106,9 @@ public class App {
 
                 TSPSolver tspSolver = new TSPSolver(network);
 
-                int ans = Integer.MAX_VALUE;
+                int ans = MAX;
                 for (int i = 1; i <= network.getNumVertexes(); i++) {
-                    int tourCost = tspSolver.solveTSPProblemUsingDynamicProgramming(i, (1 << (network.getNumVertexes() + 1)) - 1);
-                    int distanceToStartCity = network.getDistanceMatrix()[i][0]; // Use index 0 for the start city
-                    ans += Math.min(ans, tourCost + distanceToStartCity);
+                    ans = Math.min(ans, tspSolver.solveTSPProblemUsingDynamicProgramming(i, (1 << (network.getNumVertexes() + 1)) - 1) + network.getDistanceMatrix()[i][1]);
                 }
 
                 System.out.println("The cost of the most efficient tour = " + ans);

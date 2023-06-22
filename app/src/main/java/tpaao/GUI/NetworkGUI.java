@@ -31,11 +31,11 @@ public class NetworkGUI extends Application {
     public void start(Stage primaryStage) {
 
         Pane pane = new Pane();
-        Scene scene = new Scene(pane, 1600, 600);
+        Scene scene = new Scene(pane, 1440, 600);
 
         this.network = App.getNetwork();
 
-        canvas = new Canvas(1600, 1200);
+        canvas = new Canvas(1440, 1200);
         gc = canvas.getGraphicsContext2D();
 
         pane.getChildren().add(canvas);
