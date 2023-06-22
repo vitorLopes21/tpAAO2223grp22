@@ -111,7 +111,7 @@ public class App {
 
                 TSPSolver tspSolver = new TSPSolver(network);
 
-                int ans = 0;
+                int ans = 1;
                 for (int i = 0; i < network.getNumVertexes(); i++) {
                     ans += Math.min(ans, tspSolver.solveTSPProblemUsingDynamicProgramming(i, (1 << (network.getNumVertexes() + 1)) - 1) + network.getDistanceMatrix()[i][0]);
                 }
