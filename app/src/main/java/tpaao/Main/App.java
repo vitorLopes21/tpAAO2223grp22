@@ -63,7 +63,15 @@ public class App {
                     "Which method do you want to choose? [1]-> 6 city method; [2]-> 12 city method; [3|WIP]-> 24 city method; [0] -> Go back");
 
             Scanner scanner = new Scanner(System.in);
-            choice = scanner.nextInt();
+
+            do {
+
+                choice = scanner.nextInt();
+                
+                if (choice < 0 || choice > 3) {
+                    System.out.println("Invalid choice. Please try again.");
+                }
+            } while (choice < 0 || choice > 3);
 
             switch (choice) {
                 case 1:
@@ -105,7 +113,7 @@ public class App {
 
                 int ans = Integer.MAX_VALUE;
                 for (int i = 1; i <= network.getNumVertexes(); i++) {
-                    int tourCost = tspSolver.solveTSPProblemUsingDynamicProgramming(i);
+                    int tourCost = tspSolver.solveTSPProblemUsingDynamicProgramming(i, (1 << (network.getNumVertexes() + 1)) - 1);
                     int distanceToStartCity = network.getDistanceMatrix()[i][0]; // Use index 0 for the start city
                     ans += Math.min(ans, tourCost + distanceToStartCity);
                 }

@@ -13,15 +13,14 @@ public class TSPSolver {
     }
 
     // Method to solve the TSP problem
-    public int solveTSPProblemUsingDynamicProgramming(int i) {
+    public int solveTSPProblemUsingDynamicProgramming(int i, int mask) {
         App.incrementComplexity(); // Increment the complexity counter
-        int mask = (1 << (this.network.getNumVertexes() + 1)) - 1;
 
         // base case
         // if only ith bit and 1st bit is set in our mask,
         // it implies we have visited all other nodes
         // already
-        if (mask == ((1 << (this.network.getNumVertexes() + 1)) - 1)) {
+        if (mask == ((1 << i) | 3)) {
             App.incrementComplexity(); // Increment the complexity counter
             return this.network.getDistanceMatrix()[1][i];
         }
@@ -53,7 +52,7 @@ public class TSPSolver {
                 int distance = network.getDistanceMatrix()[j][i]; // Assuming the start node is at index 0
 
                 // Recursively calculate the TSP solution for the remaining unvisited nodes
-                int subProblem = solveTSPProblemUsingDynamicProgramming(mask | (1 << j));
+                int subProblem = solveTSPProblemUsingDynamicProgramming(j, mask & (~(1 << i)));
 
                 // Update the result by considering the minimum distance
                 res = Math.min(res, distance + subProblem);
