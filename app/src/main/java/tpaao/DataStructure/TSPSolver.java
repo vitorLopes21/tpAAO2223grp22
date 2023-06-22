@@ -31,7 +31,7 @@ public class TSPSolver {
             return this.memo[i][mask];
         }
 
-        int res = Integer.MAX_VALUE; // result
+        int res = App.MAX; // Initialize the result to the maximum value
 
         // we have to travel all nodes j in mask and end the
         // path at ith node so for every node j in mask,
