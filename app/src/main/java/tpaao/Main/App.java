@@ -13,7 +13,6 @@ import tpaao.DataStructure.TSPSolver;
 import tpaao.GUI.NetworkGUI;
 
 public class App {
-    public static int MAX = 10000000;
     private static Network network;
     private static int complexity;
 
@@ -112,9 +111,9 @@ public class App {
 
                 TSPSolver tspSolver = new TSPSolver(network);
 
-                int ans = MAX;
+                int ans = 0;
                 for (int i = 0; i < network.getNumVertexes(); i++) {
-                    ans = Math.min(ans, tspSolver.solveTSPProblemUsingDynamicProgramming(i, (1 << (network.getNumVertexes() + 1)) - 1) + network.getDistanceMatrix()[i][0]);
+                    ans += Math.min(ans, tspSolver.solveTSPProblemUsingDynamicProgramming(i, (1 << (network.getNumVertexes() + 1)) - 1) + network.getDistanceMatrix()[i][0]);
                 }
 
                 System.out.println("The cost of the most efficient tour = " + ans);
