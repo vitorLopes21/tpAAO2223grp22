@@ -2,7 +2,7 @@ package tpaao.DataStructure;
 
 public class Network {
     // Maximum number of vertexes
-    private final int MAX_VERTEXES = 24;
+    private final int MAX_VERTEXES = 25;
     // Number of vertexes in the network
     private int numVertexes;
     // Array of vertexes
@@ -47,7 +47,7 @@ public class Network {
                 double y1 = vertexes[i].getY();
                 double x2 = vertexes[j].getX();
                 double y2 = vertexes[j].getY();
-                int distance = (int) Math.round(3 * Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
+                int distance = (int) Math.round(8 * Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
 
                 // Set the distance in the distance matrix
                 distanceMatrix[i][j] = distance;
