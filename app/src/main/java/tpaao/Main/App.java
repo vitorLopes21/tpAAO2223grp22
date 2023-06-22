@@ -103,7 +103,7 @@ public class App {
 
                 network.addEdgesBetweenAllCities();
 
-                // network.printDistanceMatrix();
+                network.printDistanceMatrix();
 
                 App.network = network;
 
@@ -111,11 +111,9 @@ public class App {
 
                 TSPSolver tspSolver = new TSPSolver(network);
 
-                int ans = Integer.MAX_VALUE;
-                for (int i = 1; i <= network.getNumVertexes(); i++) {
-                    int tourCost = tspSolver.solveTSPProblemUsingDynamicProgramming(i, (1 << (network.getNumVertexes() + 1)) - 1);
-                    int distanceToStartCity = network.getDistanceMatrix()[i][0]; // Use index 0 for the start city
-                    ans += Math.min(ans, tourCost + distanceToStartCity);
+                int ans = 1;
+                for (int i = 0; i < network.getNumVertexes(); i++) {
+                    ans += Math.min(ans, tspSolver.solveTSPProblemUsingDynamicProgramming(i, (1 << (network.getNumVertexes() + 1)) - 1) + network.getDistanceMatrix()[i][0]);
                 }
 
                 System.out.println("The cost of the most efficient tour = " + ans);
